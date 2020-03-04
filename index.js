@@ -119,9 +119,12 @@ const game = (() => {
   };
 
   const quitGame = () => {
-    const form = document.querySelector(".form");
     
-  }
+    const form = document.querySelector(".form");
+    const gameArea = document.querySelector(".game-area");
+    form.removeAttribute('style');
+    gameArea.setAttribute('style', 'display: none !important');
+  };
 
   const startGame = (firstPlayer, secondPlayer) => {
     gameBoard.renderBoard();
@@ -146,7 +149,7 @@ const game = (() => {
     restartButton.addEventListener('click', () => gameBoard.restartGame(firstPlayer, secondPlayer));
 
     const quitButton = document.querySelector("#quit");
-    quitButton.addEventListener('click', () => quitGame);
+    quitButton.addEventListener('click', quitGame);
 
     const cells = document.querySelectorAll(".btn");
 
