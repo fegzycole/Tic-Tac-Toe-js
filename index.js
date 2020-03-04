@@ -101,10 +101,13 @@ const gameBoard = (() => {
 
 const player = (name, token) => {
   let score = 0;
+
   const increaseScore = () => {
     score += 1;
   };
+
   const getScore = () => score;
+
   return {
     name,
     increaseScore,
@@ -115,12 +118,9 @@ const player = (name, token) => {
 };
 
 const game = (() => {
-  const updatePlayerScores = (
-    firstPlayer,
-    secondPlayer,
-    playerOneScore,
-    playerTwoScore
-  ) => {
+  const updatePlayerScores = (firstPlayer, secondPlayer) => {
+    const playerOneScore = document.querySelector('#p1-score');
+    const playerTwoScore = document.querySelector('#p2-score');
     playerOneScore.innerText = firstPlayer.getScore();
     playerTwoScore.innerText = secondPlayer.getScore();
   };
@@ -133,24 +133,14 @@ const game = (() => {
     gameArea.setAttribute('style', 'display: none !important');
   };
 
-  const startGame = (firstPlayer, secondPlayer) => {
-    gameBoard.renderBoard();
-    let currentPlayer = firstPlayer;
-
-    const dialog = document.querySelector('#dialog');
-    dialog.innerText = `${currentPlayer.name}'s turn`;
-
+  const showPlayerInfo = (firstPlayer, secondPlayer) => {
     const playerOneName = document.querySelector('#p1-name');
     playerOneName.innerText = firstPlayer.name;
 
     const playerTwoName = document.querySelector('#p2-name');
     playerTwoName.innerText = secondPlayer.name;
 
-    const playerOneScore = document.querySelector('#p1-score');
-    playerOneScore.innerText = firstPlayer.getScore();
-
-    const playerTwoScore = document.querySelector('#p2-score');
-    playerTwoScore.innerText = secondPlayer.getScore();
+    updatePlayerScores(firstPlayer, secondPlayer);
 
     const restartButton = document.querySelector('#restart');
     restartButton.addEventListener('click', () =>
@@ -159,11 +149,14 @@ const game = (() => {
 
     const quitButton = document.querySelector('#quit');
     quitButton.addEventListener('click', quitGame);
+  }
 
+  const gameEngine = (currentPlayer, firstPlayer, secondPlayer, dialog) => {
     const cells = document.querySelectorAll('.btn');
 
     cells.forEach((cell, index) => {
       const button = cell;
+
       cell.addEventListener('click', () => {
         if (gameBoard.failValidation(index)) {
           dialog.innerText = 'Cell already selected';
@@ -175,12 +168,7 @@ const game = (() => {
             currentPlayer.increaseScore();
             dialog.innerText = `${currentPlayer.name} wins!!!`;
             gameBoard.disableCells();
-            updatePlayerScores(
-              firstPlayer,
-              secondPlayer,
-              playerOneScore,
-              playerTwoScore
-            );
+            updatePlayerScores(firstPlayer, secondPlayer);
             return;
           }
 
@@ -189,12 +177,23 @@ const game = (() => {
             gameBoard.disableCells();
             return;
           }
-          currentPlayer =
-            currentPlayer === firstPlayer ? secondPlayer : firstPlayer;
+          currentPlayer = currentPlayer === firstPlayer ? secondPlayer : firstPlayer;
           dialog.innerText = `${currentPlayer.name}'s turn`;
         }
       });
     });
+  }
+
+  const startGame = (firstPlayer, secondPlayer) => {
+    gameBoard.renderBoard();
+    let currentPlayer = firstPlayer;
+
+    showPlayerInfo(firstPlayer, secondPlayer);
+
+    const dialog = document.querySelector('#dialog');
+    dialog.innerText = `${currentPlayer.name}'s turn`;
+
+    gameEngine(currentPlayer, firstPlayer, secondPlayer, dialog);
   };
 
   return {
