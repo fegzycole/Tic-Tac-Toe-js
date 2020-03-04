@@ -65,7 +65,7 @@ This project was built with Javascript
 
 ## Live Version
 
-- You can view the app [Here](https://github.com/fegzycole/Tic-Tac-Toe-js/)
+- You can view the app [Here](https://fegzycole.github.io/Tic-Tac-Toe-js/)
 
 <!-- ROADMAP -->
 ## Roadmap
