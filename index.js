@@ -1,11 +1,11 @@
-const boardContainer = document.querySelector('.btn-container');
-const form = document.querySelector('.form');
-const p1 = document.querySelector('#player-1').value;
-const p2 = document.querySelector('#player-2').value;
-const gameArea = document.querySelector('.game-area');
+const boardContainer = document.querySelector(".board-container");
+const form = document.querySelector(".form");
+const p1 = document.querySelector("#player-1");
+const p2 = document.querySelector("#player-2");
+const gameArea = document.querySelector(".game-area");
 
 const gameBoard = (() => {
-  const tttBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+  let tttBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 
   const winCombos = [
     [0, 1, 2],
@@ -23,7 +23,7 @@ const gameBoard = (() => {
   };
 
   const emptySpace = () => {
-    const space = tttBoard.find(elem => elem === ' ');
+    const space = tttBoard.find(elem => elem === " ");
     if (space) {
       return true;
     }
@@ -31,23 +31,28 @@ const gameBoard = (() => {
   };
 
   const failValidation = index => {
-    if (tttBoard[index] !== ' ') {
+    if (tttBoard[index] !== " ") {
       return true;
     }
     return false;
   };
 
   const renderBoard = () => {
-    boardContainer.innerHTML = ' ';
+    boardContainer.innerHTML = " ";
 
     tttBoard.forEach((cell, index) => {
-      const boardCell = document.createElement('button');
-      boardCell.classList.add('btn');
+      const boardCell = document.createElement("button");
+      boardCell.classList.add("btn");
       boardCell.innerHTML = cell;
       boardCell.id = index;
 
       boardContainer.appendChild(boardCell);
-    })
+    });
+  };
+  
+  const restartGame = (firstPlayer, secondPlayer) => {
+    tttBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+    game.startGame(firstPlayer, secondPlayer)
   }
 
   const playerWon = () => {
@@ -60,7 +65,7 @@ const gameBoard = (() => {
       if (
         tttBoard[first] === tttBoard[second] &&
         tttBoard[first] === tttBoard[third] &&
-        tttBoard[first] !== ' '
+        tttBoard[first] !== " "
       ) {
         response = true;
       }
@@ -69,10 +74,10 @@ const gameBoard = (() => {
   };
 
   const disableCells = () => {
-    const cells = document.querySelectorAll('.btn');
+    const cells = document.querySelectorAll(".btn");
 
-    cells.forEach((cell) => {
-      cell.setAttribute('disabled', true);
+    cells.forEach(cell => {
+      cell.setAttribute("disabled", true);
     });
   };
 
@@ -85,57 +90,85 @@ const gameBoard = (() => {
     emptySpace,
     renderBoard,
     disableCells,
+    restartGame
   };
 })();
 
 const player = (name, token) => {
   let score = 0;
-  const increaseScore = () => (score += 1);
-  return { name, increaseScore, token };
+  const increaseScore = () => {score += 1};
+  const getScore = () => score; 
+  return {
+    name,
+    increaseScore,
+    token,
+    score,
+    getScore
+  };
 };
 
 const game = (() => {
-  const updatePlayerScores = (firstPlayer, secondPlayer, playerOneScore, playerTwoScore) => {
-    playerOneScore.innerText = firstPlayer.score;
-    playerTwoScore.innerText = secondPlayer.score;
+  const updatePlayerScores = (
+    firstPlayer,
+    secondPlayer,
+    playerOneScore,
+    playerTwoScore
+  ) => {
+    playerOneScore.innerText = firstPlayer.getScore();
+    playerTwoScore.innerText = secondPlayer.getScore();
+  };
+
+  const quitGame = () => {
+    const form = document.querySelector(".form");
+    
   }
 
   const startGame = (firstPlayer, secondPlayer) => {
     gameBoard.renderBoard();
-
     let currentPlayer = firstPlayer;
 
-    const dialog = document.querySelector('#dialog');
-    dialog.innerText = ' ';
+    const dialog = document.querySelector("#dialog");
+    dialog.innerText = `${currentPlayer.name}'s turn`;
 
-    const playerOneName = document.querySelector('#p1-name');
+    const playerOneName = document.querySelector("#p1-name");
     playerOneName.innerText = firstPlayer.name;
 
-    const playerTwoName = document.querySelector('#p2-name');
+    const playerTwoName = document.querySelector("#p2-name");
     playerTwoName.innerText = secondPlayer.name;
 
-    const playerOneScore = document.querySelector('#p1-score');
-    playerOneScore.innerText = firstPlayer.score;
+    const playerOneScore = document.querySelector("#p1-score");
+    playerOneScore.innerText = firstPlayer.getScore();
 
-    const playerTwoScore = document.querySelector('#p2-score');
-    playerTwoScore.innerText = secondPlayer.score;
+    const playerTwoScore = document.querySelector("#p2-score");
+    playerTwoScore.innerText = secondPlayer.getScore();
 
-    const cells = document.querySelectorAll('.btn');
+    const restartButton = document.querySelector("#restart");
+    restartButton.addEventListener('click', () => gameBoard.restartGame(firstPlayer, secondPlayer));
+
+    const quitButton = document.querySelector("#quit");
+    quitButton.addEventListener('click', () => quitGame);
+
+    const cells = document.querySelectorAll(".btn");
 
     cells.forEach((cell, index) => {
-      cell.addEventListener('click', () => {
+      const button = cell;
+      cell.addEventListener("click", () => {
         if (gameBoard.failValidation(index)) {
-          dialog.innerText = 'Cell already selected';
+          dialog.innerText = "Cell already selected";
         } else {
-          dialog.innerText = `${currentPlayer.name}'s turn`;
           gameBoard.updateBoard(index, currentPlayer.token);
-          gameBoard.renderBoard();
+          button.innerText = currentPlayer.token;
 
           if (gameBoard.playerWon()) {
             currentPlayer.increaseScore();
             dialog.innerText = `${currentPlayer.name} wins!!!`;
             gameBoard.disableCells();
-            updatePlayerScores(firstPlayer, secondPlayer, playerOneScore, playerTwoScore);
+            updatePlayerScores(
+              firstPlayer,
+              secondPlayer,
+              playerOneScore,
+              playerTwoScore
+            );
             return;
           }
 
@@ -144,24 +177,30 @@ const game = (() => {
             gameBoard.disableCells();
             return;
           }
+          currentPlayer =
+            currentPlayer === firstPlayer ? secondPlayer : firstPlayer;
+            dialog.innerText = `${currentPlayer.name}'s turn`;
         }
       });
     });
   };
 
-  const registerPlayers = (playerOne, playerTwo) => {
-    const firstPlayer = player(playerOne, 'X');
-    const secondPlayer = player(playerTwo, 'O');
-
-    form.setAttribute('style', 'display: none !important');
-
-    gameArea.setAttribute('style', 'display: block !important');
-
-    startGame(firstPlayer, secondPlayer);
+  return {
+    startGame
   };
-
-  return { registerPlayers, startGame }
 })();
 
-form.addEventListener('submit', () => game.registerPlayers(p1, p2))
+const registerPlayers = e => {
+  e.preventDefault();
 
+  const firstPlayer = player(p1.value, "X");
+  const secondPlayer = player(p2.value, "O");
+
+  form.setAttribute("style", "display: none !important");
+
+  gameArea.setAttribute("style", "display: block !important");
+
+  game.startGame(firstPlayer, secondPlayer);
+};
+
+form.addEventListener("submit", registerPlayers);
