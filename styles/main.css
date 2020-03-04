@@ -1,4 +1,133 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
 .game-area {
   display: none;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.game-area .players {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px auto;
+}
+
+.game-area .players .player-props h4 {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 35px;
+  color: #1331c0;
+}
+
+.game-area .players .player-props p {
+  font-size: 25px;
+  color: #FFAF30;
+  font-weight: 10px;
+}
+
+.game-area #dialog {
+  font-family: 'Patrick Hand', cursive;
+  font-size: 30px;
+  color: #1331c0;
+}
+
+.game-area .board-container {
+  width: 300px;
+  height: 300px;
+  margin: 10px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.game-area .board-container .btn {
+  font-family: 'Yeon Sung', cursive;
+  width: 99px;
+  height: 100px;
+  border: 1px solid #1331c0;
+  background-color: #fff;
+  color: #FFAF30;
+  font-size: 60px;
+  cursor: pointer;
+}
+
+.game-area .action-buttons {
+  margin-top: 20px;
+}
+
+.game-area .action-buttons .cta-btn {
+  background-color: #FFAF30;
+  border: none;
+  padding: 8px 15px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.game-area .action-buttons .cta-btn:hover {
+  border: 1px solid #1331c0;
+  padding: 7px 14px;
+  background-color: #fff;
+  color: #1331c0;
+}
+
+h2 {
+  font-family: 'Yeon Sung', cursive;
+  font-size: 60px;
+  margin-top: 20px;
+  color: #FFAF30;
+}
+
+.form {
+  width: 400px;
+  margin: 30px auto;
+}
+
+.form input[type='text'] {
+  width: 90%;
+  margin: 0 auto 20px auto;
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #1331c0;
+  border-radius: 6px;
+}
+
+.form input[type='submit'] {
+  background-color: #FFAF30;
+  border: none;
+  padding: 8px 15px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.form input[type='submit']:hover {
+  border: 1px solid #1331c0;
+  padding: 7px 14px;
+  background-color: #fff;
+  color: #1331c0;
+}
+
+.form .form-header {
+  padding: 20px;
+  color: #1331c0;
+  font-size: 22px;
 }
 /*# sourceMappingURL=main.css.map */

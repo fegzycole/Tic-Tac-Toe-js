@@ -1,3 +1,123 @@
+* {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body {
+  background-color: #fff;
+}
 .game-area {
   display: none;
+  width: 85%;
+  margin: 0 auto;
+
+  .players {
+    display: flex;
+    width: 60%;
+    justify-content: space-between;
+    margin: 10px auto;
+
+    .player-props {
+      h4 {
+        font-family: 'Patrick Hand', cursive;
+        font-size: 35px;
+        color: rgb(19,49,192);
+      }
+
+      p {
+        font-size: 25px;
+        color: #FFAF30;
+        font-weight: 10px;
+      }
+    }
+  }
+
+  #dialog {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 30px;
+    color: rgb(19,49,192);
+  }
+
+  .board-container {
+    width: 300px;
+    height: 300px;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    .btn {
+      font-family: 'Yeon Sung', cursive;
+      width: 99px;
+      height: 100px;
+      border: 1px solid rgb(19,49,192);
+      background-color: #fff;
+      color: #FFAF30;
+      font-size: 60px;
+      cursor: pointer;
+    }
+  }
+
+  .action-buttons {
+    margin-top: 20px;
+    .cta-btn {
+      background-color: #FFAF30;
+      border: none;
+      padding: 8px 15px;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 4px;
+
+      &:hover {
+        border: 1px solid rgb(19,49,192);
+        padding: 7px 14px;
+        background-color: #fff;
+        color: rgb(19,49,192);
+      }
+    }
+  }
+}
+
+h2 {
+  font-family: 'Yeon Sung', cursive;
+  font-size: 60px;
+  margin-top: 20px;
+  color: #FFAF30;
+}
+
+.form {
+  width: 400px;
+  margin: 30px auto;
+
+  input[type = 'text'] {
+    width: 90%;
+    margin: 0 auto 20px auto;
+    padding: 8px 12px;
+    text-align: left;
+    border: 1px solid rgb(19,49,192);
+    border-radius: 6px;
+  }
+
+  input[type = 'submit'] {
+    background-color: #FFAF30;
+    border: none;
+    padding: 8px 15px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+      border: 1px solid rgb(19,49,192);
+      padding: 7px 14px;
+      background-color: #fff;
+      color: rgb(19,49,192);
+    }
+  }
+
+  .form-header {
+    padding: 20px;
+    color: rgb(19,49,192);
+    font-size: 22px;
+  }
 }
