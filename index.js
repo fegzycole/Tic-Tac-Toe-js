@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const boardContainer = document.querySelector('.board-container');
 const form = document.querySelector('.form');
 const p1 = document.querySelector('#player-1');
@@ -15,7 +16,7 @@ const gameBoard = (() => {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
 
   const updateBoard = (index, token) => {
@@ -52,7 +53,7 @@ const gameBoard = (() => {
 
   const resetBoard = () => {
     tttBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
-  }
+  };
 
   const restartGame = (firstPlayer, secondPlayer) => {
     resetBoard();
@@ -67,9 +68,9 @@ const gameBoard = (() => {
       const third = combo[2];
 
       if (
-        tttBoard[first] === tttBoard[second] &&
-        tttBoard[first] === tttBoard[third] &&
-        tttBoard[first] !== ' '
+        tttBoard[first] === tttBoard[second]
+        && tttBoard[first] === tttBoard[third]
+        && tttBoard[first] !== ' '
       ) {
         response = true;
       }
@@ -113,7 +114,7 @@ const player = (name, token) => {
     increaseScore,
     token,
     score,
-    getScore
+    getScore,
   };
 };
 
@@ -143,13 +144,11 @@ const game = (() => {
     updatePlayerScores(firstPlayer, secondPlayer);
 
     const restartButton = document.querySelector('#restart');
-    restartButton.addEventListener('click', () =>
-      gameBoard.restartGame(firstPlayer, secondPlayer)
-    );
+    restartButton.addEventListener('click', () => gameBoard.restartGame(firstPlayer, secondPlayer));
 
     const quitButton = document.querySelector('#quit');
     quitButton.addEventListener('click', quitGame);
-  }
+  };
 
   const gameEngine = (currentPlayer, firstPlayer, secondPlayer, dialog) => {
     const cells = document.querySelectorAll('.btn');
@@ -173,7 +172,7 @@ const game = (() => {
           }
 
           if (!gameBoard.emptySpace()) {
-            dialog.innerText = `It's a tie`;
+            dialog.innerText = 'It\'s a tie';
             gameBoard.disableCells();
             return;
           }
@@ -182,11 +181,11 @@ const game = (() => {
         }
       });
     });
-  }
+  };
 
   const startGame = (firstPlayer, secondPlayer) => {
     gameBoard.renderBoard();
-    let currentPlayer = firstPlayer;
+    const currentPlayer = firstPlayer;
 
     showPlayerInfo(firstPlayer, secondPlayer);
 
@@ -197,7 +196,7 @@ const game = (() => {
   };
 
   return {
-    startGame
+    startGame,
   };
 })();
 
