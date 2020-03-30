@@ -1,0 +1,31 @@
+{
+  "name": "Tic-Tac-Toe-js",
+  "version": "1.0.0",
+  "description": "[![Contributors][contributors-shield]][contributors-url] [![Issues][issues-shield]][issues-url] <br /> <p align=\"center\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watch",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fegzycole/Tic-Tac-Toe-js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fegzycole/Tic-Tac-Toe-js/issues"
+  },
+  "homepage": "https://github.com/fegzycole/Tic-Tac-Toe-js#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "babel-loader": "^8.1.0",
+    "jest": "^25.2.4",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  }
+}
