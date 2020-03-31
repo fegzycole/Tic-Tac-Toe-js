@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import game from './game';
 
 const boardContainer = document.querySelector('.board-container');
@@ -21,14 +22,14 @@ const gameBoard = (() => {
   };
 
   const emptySpace = () => {
-    const space = tttBoard.find(elem => elem === ' ');
+    const space = tttBoard.find((elem) => elem === ' ');
     if (space) {
       return true;
     }
     return false;
   };
 
-  const failValidation = index => {
+  const failValidation = (index) => {
     if (tttBoard[index] !== ' ') {
       return true;
     }
@@ -59,7 +60,7 @@ const gameBoard = (() => {
 
   const playerWon = () => {
     let response = false;
-    winCombos.forEach(combo => {
+    winCombos.forEach((combo) => {
       const first = combo[0];
       const second = combo[1];
       const third = combo[2];
@@ -78,7 +79,7 @@ const gameBoard = (() => {
   const disableCells = () => {
     const cells = document.querySelectorAll('.btn');
 
-    cells.forEach(cell => {
+    cells.forEach((cell) => {
       cell.setAttribute('disabled', true);
     });
   };

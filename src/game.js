@@ -1,4 +1,6 @@
-import gameBoard from "./gameboard";
+/* eslint-disable no-param-reassign */
+/* eslint-disable import/no-cycle */
+import gameBoard from './gameboard';
 
 const game = (() => {
   const updatePlayerScores = (firstPlayer, secondPlayer) => {
